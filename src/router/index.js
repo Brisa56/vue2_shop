@@ -1,25 +1,43 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+//该文件专门用于创建整个应用的路由器
 
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
+import Vue from 'vue'
+import Router from 'vue-router'
+import Login from '../components/Login.vue'
+import Home from '../components/Home.vue'
 
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes
+
+Vue.use(Router)
+
+const router = new Router ({  
+  routes:[
+    {
+        path:'/', redirect:'/login'//重定向到login
+    },
+    {
+        path:'/login',component:Login
+    },
+    {
+        path:'/home', component:Home
+    }
+  ]
+})
+//挂载路由导航守卫
+router.beforeEach((to, from, next)=>{
+    // to将要访问的路径
+    // from代表从哪个路径跳转而来
+    // next 是一个函数，表示放行
+    // next() 放行    next('/login')强制跳转
+
+    if(to.path === '/login') return next();
+
+    // 获取token
+    const tokenStr = window.sessionStorage.getItem('token')
+    //如果token为空，则强制跳转
+    if(!tokenStr) return next('/login')
+    //否则放行
+    next()
 })
 
-export default router
+
+
+export default  router
