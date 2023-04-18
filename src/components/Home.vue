@@ -104,7 +104,7 @@ export default {
       //判断菜单获取的状态码，确定是否接收到数据
       if(res.meta.status !== 200) return this.$message.error(res.meta.msg)
       this.menuList = res.data//数组
-      console.log(res)
+      // console.log(res)
     },
 
     //折叠/展开左侧菜单区域
