@@ -315,7 +315,7 @@ export default {
         return this.$message.error('获取商品分类失败')
       // 赋值
       this.catelist = res.data
-      console.log(this.catelist)
+      // console.log(this.catelist)
     },
     //级联选择框选中项变化，会触发这个函数
     handleChange() {
@@ -355,7 +355,7 @@ export default {
         //文本框中输入的值
         item.inputValue = ''
       })
-      console.log(res.data)
+      // console.log(res.data)
       if (this.activeName == 'many') {
         this.manyTableData = res.data
       } else {
